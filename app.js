@@ -5,6 +5,9 @@ const config = require('./config');
 var Logger = require('./utils/logger');
 const routesHelloHapi = require('./routes/hello-hapi');
 const routesUsers = require('./routes/users');
+const routesUpload = require('./routes/upload');
+const routesOcr = require('./routes/ocr');
+const routesNotes = require('./routes/notes');
 const pluginHapiSwagger = require('./plugins/hapi-swagger');
 const pluginHapiPagination = require('./plugins/hapi-pagination');
 const pluginHapiAuthJWT2 = require('./plugins/hapi-auth-jwt2');
@@ -31,6 +34,9 @@ const init = async () => {
     // 创建一个简单的hello hapi接口
     ...routesHelloHapi,
     ...routesUsers,
+    ...routesUpload,
+    ...routesOcr,
+    ...routesNotes
   ]);
   // 启动服务
   await server.start();

@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
+    "baidu-aip-sdk": "^2.3.9",
     "env2": "^2.2.2",
     "hapi": "^16.7.0",
     "hapi-auth-jwt2": "^7.4.1",
@@ -20,6 +21,7 @@
     "joi": "^13.7.0",
     "jsonwebtoken": "^8.4.0",
     "log4js": "^4.0.1",
+    "multiparty": "^4.2.1",
     "mysql2": "^1.6.4",
     "package": "^1.0.1",
     "sequelize": "^4.42.0",

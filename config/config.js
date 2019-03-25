@@ -7,9 +7,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-const {
-  env
-} = process;
+const { env } = process;
 
 module.exports = {
   development: {
