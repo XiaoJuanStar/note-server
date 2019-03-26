@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
         autoIncrement: true,
       },
       note_title: DataTypes.STRING,
-      note_content: DataTypes.STRING,
+      note_content: DataTypes.TEXT,
       note_picture: DataTypes.STRING,
       open_id: DataTypes.STRING,
     },

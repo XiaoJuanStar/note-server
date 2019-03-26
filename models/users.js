@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       gender: DataTypes.INTEGER,
       open_id: DataTypes.STRING,
       session_key: DataTypes.STRING,
+      jwt_token: DataTypes.STRING,
     },
     {
       tableName: 'users',

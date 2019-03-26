@@ -11,7 +11,7 @@ const config = {
     underscored: true,
   },
   timezone: '+08:00', //东八时区
-  charset:'UTF8MB4_GENERAL_CI'
+  charset: 'utf8',
 };
 const db = {};
 let sequelize = null;

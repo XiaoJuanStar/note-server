@@ -8,9 +8,9 @@ module.exports = [{
     method:'post',
     path:`/${GROUP_NAME}/saveNotes`,
     handler: async (req, reply) => {
-        const { id, sessionkey, title, content, src } = req.payload;
+        const { id, token, title, content, src } = req.payload;
         const users = await models.users.findAll({
-            where: { session_key: sessionkey }
+            where: { jwt_token: token }
         });
         var openId = users.openId;
         var updateStr = { open_id: openId, note_title: title, note_content: content, note_picture: src };
@@ -60,9 +60,9 @@ module.exports = [{
     method:'post',
     path:`/${GROUP_NAME}/getNotesList`,
     handler: async (req, reply) => {
-        const sessionkey = req.payload.sessionkey;
+        const token = req.payload.token;
         const users = await models.users.findAll({
-            where: { session_key: sessionkey }
+            where: { jwt_token: token }
         });
         var openId = users.openId;
         if (openId !== undefined) {

@@ -1,6 +1,6 @@
 const Hapi = require('hapi');
 const hapiAuthJWT2 = require('hapi-auth-jwt2');
-require('env2')('./.env');
+require('env2')('./.env.prod');
 const config = require('./config');
 var Logger = require('./utils/logger');
 const routesHelloHapi = require('./routes/hello-hapi');
