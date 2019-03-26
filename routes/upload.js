@@ -1,3 +1,4 @@
+
 let path = require('path');
 const GROUP_NAME = 'upload';
 let fs = require('fs');
@@ -21,11 +22,11 @@ module.exports = [{
         var upload=request.payload.upload || '';
         if (upload !== '') {
             var uploadname = path.basename(request.payload.upload.hapi.filename);
-            console.log(uploadname);
+            var url = location.origin + '/uploads/' + uploadname;
             if (/.(jpg|jpeg|png)$/.test(uploadname)) {
                 var des = path.join(__dirname, '../uploads', uploadname);
                 upload.pipe(fs.createWriteStream(des));
-                reply({ result: true, code: 0 });
+                reply({ result: true, src:url });
             } else { 
                 reply({ result: false, msg: '请上传jpg或jpeg或png格式图片' });
             }
@@ -55,7 +56,7 @@ module.exports = [{
             }
         },
     },
-}]
+},]
 
 
 

@@ -56,7 +56,6 @@ module.exports = [{
     config: {
         tags: ['api', GROUP_NAME],
         description: '删除日记接口',
-        auth: false,
         validate: {
             ...jwtHeaderDefine,
             payload: {

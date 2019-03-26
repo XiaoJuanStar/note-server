@@ -1,5 +1,7 @@
+let Path = require('path');
 const Hapi = require('hapi');
 const hapiAuthJWT2 = require('hapi-auth-jwt2');
+const inert = require('inert');
 require('env2')('./.env.prod');
 const config = require('./config');
 var Logger = require('./utils/logger');
@@ -8,6 +10,9 @@ const routesUsers = require('./routes/users');
 const routesUpload = require('./routes/upload');
 const routesOcr = require('./routes/ocr');
 const routesNotes = require('./routes/notes');
+const routesFile = require('./routes/file');
+
+
 const pluginHapiSwagger = require('./plugins/hapi-swagger');
 const pluginHapiPagination = require('./plugins/hapi-pagination');
 const pluginHapiAuthJWT2 = require('./plugins/hapi-auth-jwt2');
@@ -27,6 +32,7 @@ const init = async () => {
     ...pluginHapiSwagger,
     pluginHapiPagination,
     hapiAuthJWT2,
+    inert,
   ]);
   pluginHapiAuthJWT2(server);
   // 注册路由
@@ -36,7 +42,9 @@ const init = async () => {
     ...routesUsers,
     ...routesUpload,
     ...routesOcr,
-    ...routesNotes
+    ...routesNotes,
+    ...routesFile,
+   
   ]);
   // 启动服务
   await server.start();
