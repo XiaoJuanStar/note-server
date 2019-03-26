@@ -1,7 +1,7 @@
 let path = require('path');
 const GROUP_NAME = 'notes';
 const Joi = require('joi');
-
+const { jwtHeaderDefine } = require('../utils/router-helper');
 const models = require('../models');
 
 module.exports = [{
@@ -12,24 +12,31 @@ module.exports = [{
         const users = await models.users.findAll({
             where: { jwt_token: token }
         });
-        var openId = users.openId;
+        var openId = users[0].open_id || '';
         var updateStr = { open_id: openId, note_title: title, note_content: content, note_picture: src };
+       
         if (id !== undefined) {
             await models.notes.update(updateStr, {
                 where: { id: id },
             })
-        } else{
+            reply({ result: true, msg: '更新成功' })
+        } else if (openId != '') {
             await models.notes.create(updateStr);
-         }
-        reply('ok');
+            reply({ result: true, msg: '创建成功' })
+        } else {   
+            reply({ result: false, msg: '创建或保存失败' })
+        }
+       
+       
     },
     config: {
         tags: ['api', GROUP_NAME],
-        description: '新建日记接口',
+        description: '保存日记接口',
         auth: false,
         validate: {
             payload: {
-                sessionkey: Joi.string().required().description('用户sessionkey'),
+                id: Joi.number().description('日记id(可选)'),
+                token: Joi.string().required().description('用户jwt_token'),
                 title: Joi.string().required().description('日记标题'),
                 content: Joi.string().required().description('日记内容'),
                 src: Joi.string().description('日记图片'),
@@ -44,13 +51,14 @@ module.exports = [{
         await models.notes.destroy({
             where: { id: id },
         })
-        reply('ok')
+        reply({result:true,msg:'删除成功'})
     },
     config: {
         tags: ['api', GROUP_NAME],
         description: '删除日记接口',
         auth: false,
         validate: {
+            ...jwtHeaderDefine,
             payload: {
               id: Joi.number().required().description('日记ID'),
             },
@@ -64,7 +72,7 @@ module.exports = [{
         const users = await models.users.findAll({
             where: { jwt_token: token }
         });
-        var openId = users.openId;
+        var openId = users[0].open_id || '';
         if (openId !== undefined) {
             const result = await models.notes.findAll({
                 where: { open_id: openId }
@@ -80,8 +88,9 @@ module.exports = [{
         description: '获取日记列表接口',
         auth: false,
         validate: {
+            ...jwtHeaderDefine, // 增加需要 jwt auth 认证的接口 header 校验
             payload: {
-                sessionkey: Joi.string().required().description('用户sessionkey'),
+                token: Joi.string().required().description('用户jwt_token'),
             },
         },
     },
