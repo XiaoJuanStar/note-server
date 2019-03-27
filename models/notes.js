@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       note_title: DataTypes.STRING,
       note_content: DataTypes.TEXT,
       note_picture: DataTypes.STRING,
+      note_place: DataTypes.STRING,
       open_id: DataTypes.STRING,
     },
     {

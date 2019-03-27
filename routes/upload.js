@@ -19,10 +19,11 @@ module.exports = [{
     method:'post',
     path:`/${GROUP_NAME}/uploadImg`,
     handler: function (request, reply) {
+        console.log(request.server.info.uri);
         var upload=request.payload.upload || '';
         if (upload !== '') {
             var uploadname = path.basename(request.payload.upload.hapi.filename);
-            var url = location.origin + '/uploads/' + uploadname;
+            var url = 'https://www.ableya.cn/uploads/' + uploadname;
             if (/.(jpg|jpeg|png)$/.test(uploadname)) {
                 var des = path.join(__dirname, '../uploads', uploadname);
                 upload.pipe(fs.createWriteStream(des));

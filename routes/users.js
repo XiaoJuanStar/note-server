@@ -78,7 +78,7 @@ module.exports = [{
       var jwt = generateJWT({
         userId: user[0].id,
       });
-
+      logger.info(jwt);
       // 更新user表中的用户的资料信息
       const nic_kname = Buffer.from(userInfo.nickName).toString('base64');
       await models.users.update({
@@ -87,7 +87,7 @@ module.exports = [{
         gender: userInfo.gender,
         open_id: openid,
         session_key: sessionKey,
-        jwt_token: jwt
+        jwt_token: jwt+''
       }, {
         where: {
           open_id: openid
