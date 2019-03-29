@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const AipOcrClient = require("baidu-aip-sdk").ocr;
 // const fs = require('fs');
+const { jwtHeaderDefine } = require('../utils/router-helper');
 const config = require('../config');
 
 const GROUP_NAME = 'ocr';
