@@ -16,6 +16,7 @@ module.exports = [{
         var updateStr = { open_id: openId, note_title: title, note_content: content, note_place: place,note_picture: src };
        
         if (id !== undefined) {
+            
             await models.notes.update(updateStr, {
                 where: { id: id },
             })
@@ -38,7 +39,9 @@ module.exports = [{
                 id: Joi.number().description('日记id(可选)'),
                 token: Joi.string().required().description('用户jwt_token'),
                 title: Joi.string().required().description('日记标题'),
-                content: Joi.string().required().description('日记内容')
+                content: Joi.string().required().description('日记内容'),
+                src: Joi.string().allow('').description('图片链接(可选)'),
+                place: Joi.string().allow('').description('日记地点(可选)'),
             },
         },
     },

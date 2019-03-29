@@ -39,8 +39,8 @@ module.exports = [{
     config: {
         tags: ['api', GROUP_NAME],
         description: '识别图片转换成文字接口',
-        auth: false, 
         validate: {
+            ...jwtHeaderDefine, // 增加需要 jwt auth 认证的接口 header 校验
             payload: {
               src: Joi.string().required().description('需要识别的图片链接'),
             },
