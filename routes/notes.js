@@ -3,6 +3,8 @@ const GROUP_NAME = 'notes';
 const Joi = require('joi');
 const { jwtHeaderDefine } = require('../utils/router-helper');
 const models = require('../models');
+var seq = require('sequelize');
+var Op = seq.Op;
 
 module.exports = [{
     method:'post',
@@ -70,6 +72,7 @@ module.exports = [{
     path:`/${GROUP_NAME}/getNotesList`,
     handler: async (req, reply) => {
         const token = req.payload.token;
+        const timeStart = req.payload.time;
         const users = await models.users.findAll({
             where: { jwt_token: token }
         });
@@ -77,9 +80,13 @@ module.exports = [{
         console.log(users[0].open_id);
         var openId = users[0].open_id || '';
         if (openId !== undefined) {
+            let whereStr = { open_id: openId };
+            if (timeStart !== '') {
+                whereStr ={ open_id: openId, created_at: {[Op.gte]: timeStart+'', [Op.lte]: timeStart + ' 23:59:59'}}
+            }
             const result = await models.notes.findAll({
                 attributes: { exclude: ['open_id'] },
-                where: { open_id: openId }
+                where: whereStr
             });
             reply(result);
 
@@ -95,6 +102,7 @@ module.exports = [{
             // ...jwtHeaderDefine, // 增加需要 jwt auth 认证的接口 header 校验
             payload: {
                 token: Joi.string().required().description('用户jwt_token'),
+                time: Joi.string().allow('').description('日记筛选的时间')
             },
         },
     },

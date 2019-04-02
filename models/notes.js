@@ -1,3 +1,4 @@
+
 module.exports = (sequelize, DataTypes) => sequelize.define(
     'notes',
     {
@@ -12,7 +13,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       note_place: DataTypes.STRING,
       open_id: DataTypes.STRING,
     },
-    {
-      tableName: 'notes',
+  {
+    tableName: 'notes',
     },
   );
