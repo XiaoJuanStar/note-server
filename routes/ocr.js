@@ -20,7 +20,6 @@ module.exports = [{
     path: `/${GROUP_NAME}/distinguish`,
     handler: async (request, reply) => { 
         let url = request.payload.src || '';
-        // var url = "https://mapopen-website-index.cdn.bcebos.com/homePage/images/hp-use66.png";
         // 调用通用文字识别, 图片参数为远程url图片
         if (url !== '') {
             const ocr = await client.generalBasicUrl(url).then(function (result) {
@@ -28,7 +27,6 @@ module.exports = [{
                 return JSON.stringify(result)
             }).catch(function (err) {
                 // 如果发生网络错误
-                console.log(err);
                 return err;
             });
             reply(ocr);

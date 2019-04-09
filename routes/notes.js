@@ -18,7 +18,6 @@ module.exports = [{
         var updateStr = { open_id: openId, note_title: title, note_content: content, note_place: place,note_picture: src };
        
         if (id !== undefined) {
-            
             await models.notes.update(updateStr, {
                 where: { id: id },
             })
@@ -76,8 +75,6 @@ module.exports = [{
         const users = await models.users.findAll({
             where: { jwt_token: token }
         });
-        console.log('users');
-        console.log(users[0].open_id);
         var openId = users[0].open_id || '';
         if (openId !== undefined) {
             let whereStr = { open_id: openId };
@@ -122,7 +119,6 @@ module.exports = [{
         description: '获取日记详情接口',
         auth: false,
         validate: {
-            // ...jwtHeaderDefine, // 增加需要 jwt auth 认证的接口 header 校验
             payload: {
                 id: Joi.string().required().description('日记id'),
             },
