@@ -52,8 +52,9 @@ module.exports = [{
         },
       });
       // response 中返回 openid 与 session_key
-      const { openid,session_key: sessionKey } = response.data;
-
+      const { openid, session_key: sessionKey } = response.data;
+      
+      
       // 基于 openid 查找或创建一个用户
       if (openid != undefined) {
         var user = await models.users.findOrCreate({
