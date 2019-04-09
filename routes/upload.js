@@ -5,7 +5,7 @@ let fs = require('fs');
 let multiparty = require('multiparty');
 const Joi = require('joi');
 
-var upload = function(files, reply) {
+let upload = function(files, reply) {
     fs.readFile(files.file[0].path, function(err, data) {
         fs.writeFile(files.file[0].originalFilename, data, function(err) {
             if (err) return reply(err);
@@ -19,12 +19,12 @@ module.exports = [{
     method:'post',
     path:`/${GROUP_NAME}/uploadImg`,
     handler: function (request, reply) {
-        var upload = request.payload.upload || '';
+        let upload = request.payload.upload || '';
         if (upload !== '') {
-            var uploadname = path.basename(request.payload.upload.hapi.filename);
-            var url = 'https://www.ableya.cn/uploads/' + uploadname;
+            let uploadname = path.basename(request.payload.upload.hapi.filename);
+            let url = 'https://www.ableya.cn/uploads/' + uploadname;
             if (/.(jpg|jpeg|png)$/.test(uploadname)) {
-                var des = path.join(__dirname, '../uploads', uploadname);
+                let des = path.join(__dirname, '../uploads', uploadname);
                 upload.pipe(fs.createWriteStream(des));
                 reply({ result: true, src:url });
             } else { 

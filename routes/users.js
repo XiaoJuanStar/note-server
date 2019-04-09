@@ -2,12 +2,12 @@ const JWT = require('jsonwebtoken');
 const Joi = require('joi');
 const axios = require('axios');
 const config = require('../config');
-var Logger = require('../utils/logger');
+const Logger = require('../utils/logger');
 const models = require('../models');
 const decryptData = require('../utils/decrypted-data');
 
 const GROUP_NAME = 'users';
-var logger = Logger.getLogger('users');
+const logger = Logger.getLogger('users');
 
 module.exports = [{
     method: 'POST',
@@ -54,7 +54,7 @@ module.exports = [{
       // response 中返回 openid 与 session_key
       const { openid, session_key: sessionKey } = response.data;
       
-      
+
       // 基于 openid 查找或创建一个用户
       if (openid != undefined) {
         var user = await models.users.findOrCreate({

@@ -3,8 +3,8 @@ const GROUP_NAME = 'notes';
 const Joi = require('joi');
 const { jwtHeaderDefine } = require('../utils/router-helper');
 const models = require('../models');
-var seq = require('sequelize');
-var Op = seq.Op;
+const seq = require('sequelize');
+const Op = seq.Op;
 
 module.exports = [{
     method:'post',
@@ -14,8 +14,8 @@ module.exports = [{
         const users = await models.users.findAll({
             where: { jwt_token: token }
         });
-        var openId = users[0].open_id || '';
-        var updateStr = { open_id: openId, note_title: title, note_content: content, note_place: place,note_picture: src };
+        const openId = users[0].open_id || '';
+        let updateStr = { open_id: openId, note_title: title, note_content: content, note_place: place,note_picture: src };
        
         if (id !== undefined) {
             await models.notes.update(updateStr, {
@@ -75,7 +75,7 @@ module.exports = [{
         const users = await models.users.findAll({
             where: { jwt_token: token }
         });
-        var openId = users[0].open_id || '';
+        let openId = users[0].open_id || '';
         if (openId !== undefined) {
             let whereStr = { open_id: openId };
             if (timeStart !== '') {
